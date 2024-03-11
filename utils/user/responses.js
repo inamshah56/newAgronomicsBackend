@@ -1,4 +1,6 @@
-// ===================== success responses ===================================
+// ================================================================
+// ===================== success responses ========================
+// ================================================================
 
 const successOk = (res, message, data) => {
     if (data) {
@@ -14,13 +16,19 @@ const successOk = (res, message, data) => {
     }
 };
 
-// ===================== error responses ===================================
+// ================================================================
+// ===================== error responses ==========================
+// ================================================================
+
+// ===================== success responses ========================
 
 const catchError = (res, error) => {
     return res.status(500).send({
         message: error.message || "Internal server error",
     });
 };
+
+// ===================== catchError ========================
 
 const validationError = (res, message) => {
     return res.status(400).send({
@@ -30,6 +38,8 @@ const validationError = (res, message) => {
     });
 };
 
+// ===================== frontError ========================
+
 const frontError = (res, message) => {
     return res.status(400).send({
         success: false,
@@ -37,6 +47,8 @@ const frontError = (res, message) => {
         message: message,
     });
 };
+
+// ===================== backError ========================
 
 const backError = (res, message) => {
     return res.status(400).send({

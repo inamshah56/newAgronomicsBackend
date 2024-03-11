@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../config/sequelize");
+const { sequelize } = require("../../config/sequelize");
 const { v4: uuidv4 } = require("uuid");
 
 const Farm = sequelize.define(
@@ -57,6 +57,10 @@ const Farm = sequelize.define(
         },
         tw_motor_power_hp: {
             type: DataTypes.INTEGER,
+        },
+        cultivated: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
         },
         simulator_active: {
             type: DataTypes.BOOLEAN,

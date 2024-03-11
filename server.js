@@ -10,7 +10,7 @@ const cors = require("cors");
 // ===================== importing configs ========================
 // ================================================================
 
-const sequelize = require("./config/sequelize");
+const { sequelize, sequelize_grided_pak } = require("./config/sequelize");
 
 // ================================================================
 // ===================== middlewares ==============================
@@ -37,6 +37,8 @@ require("./routes/user/otp.routes")(app);
 require("./routes/user/user.routes")(app);
 require("./routes/farm/farm.routes")(app);
 require("./routes/farm/python.routes")(app);
+require("./routes/farm/crop.routes")(app);
+require("./routes/farm/lgs.routes")(app);
 
 // ================================================================
 // ===================== port =====================================
@@ -48,8 +50,12 @@ const PORT = 8090;
 // ===================== database connection ======================
 // ================================================================
 
-sequelize
-    .sync({ force: false })
+// sequelize
+// .sync({ force: false })
+Promise.all([
+    sequelize.sync({ force: false }),
+    // sequelize_grided_pak.sync({ force: false }), // Sync the models for the second database
+])
     .then(() => {
         console.log(
             `==============================================================================`

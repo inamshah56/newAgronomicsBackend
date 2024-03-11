@@ -11,5 +11,11 @@ module.exports = (app) => {
         .route("/get-province")
         .get(verifyToken, pythonController.getProvince);
 
+    router
+        .route("/get-crop-data")
+        .get(verifyToken, pythonController.getCropData);
+
+    router.route("/test").get(verifyToken, pythonController.test);
+
     app.use(router);
 };
