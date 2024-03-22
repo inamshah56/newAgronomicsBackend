@@ -12,8 +12,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     },
 });
 
-// const sequelize_grided_pak = new Sequelize(
-//     "gridedpak",
+// const sequelizeAgro = new Sequelize(
+//     "moinAgronomics",
 //     dbConfig.USER,
 //     dbConfig.PASSWORD,
 //     {
@@ -28,5 +28,5 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 //     }
 // );
 
-// module.exports = { sequelize, sequelize_grided_pak };
+// module.exports = { sequelize, sequelizeAgro };
 module.exports = { sequelize };

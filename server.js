@@ -39,6 +39,7 @@ require("./routes/farm/farm.routes")(app);
 require("./routes/farm/python.routes")(app);
 require("./routes/farm/crop.routes")(app);
 require("./routes/farm/lgs.routes")(app);
+require("./routes/farm/simulator.routes")(app);
 
 // ================================================================
 // ===================== port =====================================

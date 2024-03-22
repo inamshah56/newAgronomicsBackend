@@ -90,6 +90,10 @@ const Farm = sequelize.define(
             type: DataTypes.GEOMETRY,
             allowNull: true,
         },
+        sowdate_selected: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         refered_by: {
             type: DataTypes.STRING,
             allowNull: true,

@@ -4,19 +4,17 @@ const { sequelize } = require("../../config/sequelize");
 const Lgs = sequelize.define(
     "lgs",
     {
-        uid: {
+        farmUid: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-        },
-        crop: {
-            type: DataTypes.STRING,
-        },
-        variety: {
-            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "farms",
+                key: "uid",
+            },
         },
         variety_sowing_dates: {
-            type: DataTypes.STRING,
+            type: DataTypes.ARRAY(DataTypes.STRING),
         },
         crops_lgs: {
             type: DataTypes.TEXT,
@@ -24,6 +22,15 @@ const Lgs = sequelize.define(
         sowdate: {
             type: DataTypes.DATEONLY,
             defaultValue: null,
+        },
+        sowing_method: {
+            type: DataTypes.ENUM(
+                "drill sowing",
+                "broadcasting method",
+                "pora method",
+                "none"
+            ),
+            defaultValue: "none",
         },
         sowed: {
             type: DataTypes.BOOLEAN,
@@ -55,6 +62,7 @@ module.exports = Lgs;
 const User = require("../user/user.model");
 const Farm = require("../farm/farm.model");
 const Grid = require("../grid/grid.model");
+const { Crop, Cropvariety } = require("./crop.model");
 
 User.Lgs = User.hasMany(Lgs);
 Lgs.User = Lgs.belongsTo(User);
@@ -62,5 +70,13 @@ Lgs.User = Lgs.belongsTo(User);
 Farm.Lgs = Farm.hasOne(Lgs);
 Lgs.Farm = Lgs.belongsTo(Farm);
 
-Grid.Lgs = Grid.hasMany(Lgs);
+Grid.Lgs = Grid.hasMany(Lgs, { onDelete: "Set NULL" });
 Lgs.Grid = Lgs.belongsTo(Grid);
+
+Crop.Lgs = Crop.hasMany(Lgs, { onDelete: "SET NULL" });
+Lgs.Crop = Lgs.belongsTo(Crop);
+
+Cropvariety.Lgs = Cropvariety.hasMany(Lgs, {
+    onDelete: "SET NULL",
+});
+Lgs.Cropvariety = Lgs.belongsTo(Cropvariety);

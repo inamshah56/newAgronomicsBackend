@@ -9,7 +9,8 @@ module.exports = (app) => {
     router
         .route("/farm")
         .get(verifyToken, farmController.getFarm)
-        .post(verifyToken, farmController.createFarm);
+        .post(verifyToken, farmController.createFarm)
+        .delete(verifyToken, farmController.deleteFarm);
 
     app.use(router);
 };

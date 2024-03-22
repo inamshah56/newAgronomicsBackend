@@ -23,8 +23,6 @@ exports.getCrops = async (req, res) => {
         if (!lat) return frontError(res, "lat is required");
         if (!lon) return frontError(res, "lon is required");
 
-        // ================================================================
-
         const data = await Grid.findOne({
             where: {
                 bottom: { [Op.gt]: lat }, // bottom > lat
@@ -36,7 +34,7 @@ exports.getCrops = async (req, res) => {
         });
 
         let region;
-        const soiltype = data.soiltype;
+        const soiltype = data.soiltype.replace(/\s/g, "_");
         if (data.updated_region === "none") {
             region = data.region;
         } else {
@@ -50,30 +48,16 @@ exports.getCrops = async (req, res) => {
                 where: { [soiltype]: true, irrigation_source: region },
                 attributes: ["variety_eng"],
             },
-            attributes: ["crop"],
+            attributes: ["crop_name"],
         });
         const crops_data = JSON.parse(JSON.stringify(crops));
-
         let response = {};
         for (const crop of crops_data) {
-            const crop_name = crop["crop"];
-            console.log(
-                "=============================asfasdfasdfsdf:",
-                crop_name
-            );
-            response[crop_name] = [];
-
+            response[[crop["crop_name"]]] = [];
             for (const variety of crop["crop_varieties"]) {
-                response[[crop_name]].push(variety["variety_eng"]);
+                response[[crop["crop_name"]]].push(variety["variety_eng"]);
             }
         }
-
-        console.log(
-            "++++++++++ crops ++++++++++++++\n",
-            // JSON.stringify(crops[0], null, 2)
-            response
-        );
-        console.log("=====================================================");
 
         successOk(res, response, true);
     } catch (error) {

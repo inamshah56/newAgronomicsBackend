@@ -5,25 +5,12 @@ const { sequelize } = require("../../config/sequelize");
 const Crop = sequelize.define(
     "crop",
     {
-        uid: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+        crop_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
             primaryKey: true,
         },
-        crop: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
         crop_category: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        season: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        crop_season: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -39,26 +26,31 @@ const Crop = sequelize.define(
     },
     {
         schema: "crop",
+        timestamps: false,
     }
 );
 
 const Cropvariety = sequelize.define(
     "crop_variety",
     {
-        uid: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-        },
         variety_eng: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
         },
         variety_urdu: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         variety_type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        season: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        crop_season: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -174,6 +166,7 @@ const Cropvariety = sequelize.define(
     },
     {
         schema: "crop",
+        timestamps: false,
     }
 );
 const Cropstage = sequelize.define(
